@@ -1,9 +1,33 @@
 package com.javaex.basics;
 
+import java.util.Scanner;	//	java.util 패키지의 Scanner 클래스를 로드해라
+//	필요한 클래스 들어있는 패키지를 정확하게 지칭해야 한다
+
 public class ConsoleEx {
 
 	public static void main(String[] args) {
-		consoleOutputEx();
+//		consoleOutputEx();
+		consoleInputEx();
+	}
+	
+	private static void consoleInputEx() {
+		//	팁1. Ctrl + Shift + O
+		//	팁2. 자동 완성 기능 활용 : Ctrl + Space
+		Scanner scanner = new Scanner(System.in);	//	표준 입력으로부터 데이터 입력
+		
+		System.out.println("이름을 입력해 주세요");
+		System.out.print("이름:");
+		
+		String name = scanner.next();
+		
+		System.out.print("나이:");
+		
+		int age = scanner.nextInt();
+		
+		System.out.println("당신의 이름은 " + name + "이고 " + age + "살입니다.");
+		
+		//	쓰고 나면 닫아주자!
+		scanner.close();
 	}
 	
 	private static void consoleOutputEx() {
