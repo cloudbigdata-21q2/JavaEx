@@ -35,6 +35,7 @@ public class ListEx {
 		
 		//	TODO: 루프
 		
+		
 		//	비워 봅시다:
 		lst.clear();
 		System.out.println(lst);
