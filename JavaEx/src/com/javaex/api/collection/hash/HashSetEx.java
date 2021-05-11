@@ -1,6 +1,7 @@
 package com.javaex.api.collection.hash;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class HashSetEx {
 
@@ -26,6 +27,13 @@ public class HashSetEx {
 		//	포함 여부 확인
 		System.out.println("홍길동, 10 학생이 있는가? " + 
 				hs.contains(new Student("홍길동", 10)));
+		
+		//	iterator
+		Iterator<Student> it = hs.iterator();
+		while(it.hasNext()) {
+			Student st = it.next();
+			System.out.println(st);
+		}
 	}
 	
 	private static void hashSetBasic() {

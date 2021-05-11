@@ -1,6 +1,7 @@
 package com.javaex.api.collection.list;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ListEx {
@@ -33,8 +34,13 @@ public class ListEx {
 		lst.remove("Python");
 		System.out.println(lst);
 		
-		//	TODO: 루프
-		
+		//	루프
+		//	List, Set -> Iterator 이용
+		Iterator<String> it = lst.iterator();
+		while(it.hasNext()) {	//	남은 것이 있는가?
+			String item = it.next();
+			System.out.println(item);
+		}
 		
 		//	비워 봅시다:
 		lst.clear();
