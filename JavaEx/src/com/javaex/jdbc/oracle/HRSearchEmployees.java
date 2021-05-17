@@ -40,7 +40,7 @@ public class HRSearchEmployees {
 				String lastName = rs.getString(2);
 				String email = rs.getString("email");
 				String phoneNumber = rs.getString("phone_number");
-				String hireDate = rs.getString("hire_date");	//	java.util.Date
+				String hireDate = rs.getString("hire_date");	
 				
 				//	출력
 				System.out.printf("%s %s: %s, %s, %s%n", 
