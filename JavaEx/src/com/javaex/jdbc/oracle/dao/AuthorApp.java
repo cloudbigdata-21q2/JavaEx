@@ -2,13 +2,20 @@ package com.javaex.jdbc.oracle.dao;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 public class AuthorApp {
 
 	public static void main(String[] args) {
-		selectAll();
+//		selectAll();
+		insertAuthor();
 	}
 
+	private static void insertAuthor() {
+		//	Scanner에서 이름 입력 -> INSERT
+		Scanner scanner = new Scanner(System.in);
+	}
+	
 	private static void selectAll() {
 		AuthorDAO dao = new AuthorDAOImpl();
 		List<AuthorVO> list = dao.getList();

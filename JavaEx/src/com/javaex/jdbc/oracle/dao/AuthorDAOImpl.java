@@ -2,6 +2,7 @@ package com.javaex.jdbc.oracle.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -84,8 +85,34 @@ public class AuthorDAOImpl implements AuthorDAO {
 
 	@Override
 	public boolean insert(AuthorVO vo) {
-		// TODO Auto-generated method stub
-		return false;
+		// .executeUpdate 메서드 -> int (삽입된 레코드 수)
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int insertedCount = 0;
+		
+		try {
+			conn = getConnection();
+			//	실행 계획
+			String sql = "INSERT INTO author VALUES(seq_author_id, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			//	파리미터 바인딩
+			pstmt.setString(1, vo.getAuthorName());
+			pstmt.setString(2, vo.getAuthorDesc());
+			
+			//	쿼리 수행
+			insertedCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		return 1 == insertedCount;	//	삽입된 레코드가 1개면 성공
 	}
 
 	@Override
