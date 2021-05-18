@@ -73,14 +73,85 @@ public class AuthorDAOImpl implements AuthorDAO {
 
 	@Override
 	public List<AuthorVO> search(String keyword) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		List<AuthorVO> list = new ArrayList<>();
+		
+		String sql = "SELECT author_id, author_name, author_desc FROM author " +
+					" WHERE author_name LIKE ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, "%" + keyword + "%");
+			
+			//	쿼리 수행
+			rs = pstmt.executeQuery();
+			
+			//	변환 
+			while(rs.next()) {
+				Long id = rs.getLong("author_id");
+				String authorName = rs.getString("author_name");
+				String authorDesc = rs.getString("author_desc");
+				
+				//	VO 객체
+				AuthorVO vo = new AuthorVO(id, authorName, authorDesc);
+				list.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				
+			}
+		}
+		return list;
 	}
 
 	@Override
 	public AuthorVO get(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		AuthorVO vo = null;
+		
+		try {
+			conn = getConnection();
+			String sql = "SELECT author_id, author_name, author_desc FROM author " +
+						" WHERE author_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, id);
+			
+			rs = pstmt.executeQuery();	//	쿼리 실행
+//			rs.next();	//	첫 번째 레코드?
+			
+			if (rs.next()) {
+				Long authorId = rs.getLong(1);
+				String authorName = rs.getString(2);
+				String authorDesc = rs.getString(3);
+				
+				vo = new AuthorVO(authorId, authorName, authorDesc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (Exception e) {
+				
+			}
+		}
+		
+		return vo;
 	}
 
 	@Override
