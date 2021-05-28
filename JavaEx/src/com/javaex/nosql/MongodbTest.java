@@ -1,11 +1,14 @@
 package com.javaex.nosql;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import com.mongodb.MongoClientSettings;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -165,7 +168,22 @@ public class MongodbTest {
 	
 	private static MongoClient connect() {
 		//	몽고 DB 접속
-		MongoClient client = MongoClients.create();
+//		MongoClient client = MongoClients.create();	//	기본 접속
+		//	기본값 사용: ip -> localhost, port -> 27017
+
+		//	사용자 정의 설치
+		//	Mongodb ip localhost가 이니고, 
+		//	port 27017 아니다
+		MongoClient client = MongoClients.create(	//	서버 정보
+				MongoClientSettings.builder()
+					.applyToClusterSettings(builder -> 
+						builder.hosts(
+								Arrays.asList(
+										new ServerAddress(MONGODB_IP, MONGODB_PORT)
+										)
+								)
+					).build()
+			);
 		
 		System.out.println(client);
 		return client;
